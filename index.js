@@ -4,12 +4,13 @@ const express = require('express');
 
 
 
+// initializing express
+const app = express();
 
 
 
 
-
-
+app.use('/products', require('./routes/products'));
 
 
 // starting the server
