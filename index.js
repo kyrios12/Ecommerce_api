@@ -1,7 +1,7 @@
 // importing required packages
 const express = require('express');
 
-
+const db = require('./config/mongoose');
 
 
 // initializing express
