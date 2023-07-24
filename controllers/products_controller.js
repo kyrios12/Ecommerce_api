@@ -10,6 +10,6 @@ module.exports.products = function(req, res){
             res.send(err);
         })
            
-    }
+}
 
     
