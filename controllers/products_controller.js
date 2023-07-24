@@ -12,4 +12,22 @@ module.exports.products = function(req, res){
            
 }
 
+//Create operation for creating a product
+const { promisify } = require('util');
+
+module.exports.create = async function(req, res) {
+  try {
+    const newProduct = new Product({
+      name: req.body.name,
+      quantity: req.body.quantity
+    });
+
+    const saveAsync = promisify(newProduct.save.bind(newProduct));
+    await saveAsync();
+
+    res.send('New product added successfully.');
+  } catch (error) {
+    res.send(error);
+  }
+};
     
