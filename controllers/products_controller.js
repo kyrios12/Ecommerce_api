@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-
+const { promisify } = require('util');
 // function to show all the products
 module.exports.products = function(req, res){
     Product.find({})
@@ -12,24 +12,24 @@ module.exports.products = function(req, res){
            
 }
 
-//Create operation for creating a product
-const { promisify } = require('util');
 
-module.exports.create = async function(req, res) {
-  try {
-    const newProduct = new Product({
+//Create operation for creating a product
+
+module.exports.create = function(req, res){
+  const newProduct = new Product({
       name: req.body.name,
       quantity: req.body.quantity
-    });
-
-    const saveAsync = promisify(newProduct.save.bind(newProduct));
-    await saveAsync();
-
-    res.send('New product added successfully.');
-  } catch (error) {
-    res.send(error);
-  }
-};
+  });
+  newProduct.save().then(function(err){
+    
+      if(err){
+          res.send(err);
+      }else{
+          res.send('New product added successfully.');
+      }
+  
+  });
+}
 //To perform delete operation
 module.exports.delete = async function(req, res) {
     const productID = req.params.productID; // Replace this with the actual product ID to delete
