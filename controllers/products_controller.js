@@ -42,4 +42,29 @@ module.exports.delete = async function(req, res) {
       res.send(error);
     }
 };
-
+//To perform update operation
+module.exports.updateQuantity = async function(req, res) {
+    const ID = req.params.productID;
+  
+    try {
+      // Find the product using the ID
+      const findByIdAsync = promisify(Product.findById.bind(Product));
+      const found = await findByIdAsync(ID);
+  
+      const newQty = parseInt(found.quantity) + parseInt(req.query.number);
+  
+      // Update the product's quantity
+      const findByIdAndUpdateAsync = promisify(Product.findByIdAndUpdate.bind(Product));
+      const updatedProduct = await findByIdAndUpdateAsync(ID, { quantity: newQty });
+  
+      updatedProduct.quantity = newQty;
+      res.send({
+        product: updatedProduct,
+        message: 'Updated successfully'
+      });
+    } catch (error) {
+      res.send(error);
+    }
+  };
+  
+  
