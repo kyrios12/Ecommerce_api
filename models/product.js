@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
     quantity: Number
 },{
     versionKey: false
-});
+},{timeStamps:true});
 
 // creating a new model called "Product"
 const Product = mongoose.model('Product', productSchema);

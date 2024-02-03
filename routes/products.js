@@ -14,7 +14,7 @@ router.post('/create', productsController.create);
 router.delete('/:productID', productsController.delete);
 
 // to update the quantity of a product
-router.post('/:productID/update_quantity/', productsController.updateQuantity);
+router.patch('/:productID/update_quantity/', productsController.updateQuantity);
 
 
 module.exports = router;
